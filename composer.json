@@ -1,6 +1,7 @@
 {
     "require": {
         "php": "^7.2.12",
+        "ext-mbstring": "*",
         "fzaninotto/faker": "~1.9"
     },
     "require-dev": {
