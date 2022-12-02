@@ -11,3 +11,6 @@ vendor: composer.lock
 
 example: vendor
 	$(PHP) php example/example.php
+
+test: vendor
+	$(PHP) php vendor/bin/phpunit
