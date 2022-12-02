@@ -38,8 +38,7 @@ Expected from me:
 > ### Principles
 > * Robustness principle (No BC, full retro-compatibility)
 > * **SOLID Principles** especially:
-    >
-* Single Responsibility Principle (every class should have only one reason to change)
+>   * Single Responsibility Principle (every class should have only one reason to change)
 >   * Open–Closed Principle (no longer have to modify existing code when we create new entity or template)
 >
 > ### Changes
