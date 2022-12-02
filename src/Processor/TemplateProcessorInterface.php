@@ -5,6 +5,7 @@
  *
  * @see QuoteTemplateProcessor for [quote:*] templating
  * @see UserTemplateProcessor for [user:*] templating
+ * @see SiteTemplateProcessor for [site:*] templating
  */
 interface TemplateProcessorInterface
 {
