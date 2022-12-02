@@ -2,18 +2,21 @@
 
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../src/Entity/Destination.php';
-require_once __DIR__ . '/../src/Entity/Quote.php';
-require_once __DIR__ . '/../src/Entity/Site.php';
-require_once __DIR__ . '/../src/Entity/Template.php';
-require_once __DIR__ . '/../src/Entity/User.php';
-require_once __DIR__ . '/../src/Helper/SingletonTrait.php';
-require_once __DIR__ . '/../src/Context/ApplicationContext.php';
-require_once __DIR__ . '/../src/Repository/Repository.php';
-require_once __DIR__ . '/../src/Repository/DestinationRepository.php';
-require_once __DIR__ . '/../src/Repository/QuoteRepository.php';
-require_once __DIR__ . '/../src/Repository/SiteRepository.php';
-require_once __DIR__ . '/../src/TemplateManager.php';
+require_once __DIR__.'/../src/Entity/Destination.php';
+require_once __DIR__.'/../src/Entity/Quote.php';
+require_once __DIR__.'/../src/Entity/Site.php';
+require_once __DIR__.'/../src/Entity/Template.php';
+require_once __DIR__.'/../src/Entity/User.php';
+require_once __DIR__.'/../src/Helper/SingletonTrait.php';
+require_once __DIR__.'/../src/Context/ApplicationContext.php';
+require_once __DIR__.'/../src/Repository/Repository.php';
+require_once __DIR__.'/../src/Repository/DestinationRepository.php';
+require_once __DIR__.'/../src/Repository/QuoteRepository.php';
+require_once __DIR__.'/../src/Repository/SiteRepository.php';
+require_once __DIR__.'/../src/Processor/TemplateProcessorInterface.php';
+require_once __DIR__.'/../src/Processor/QuoteTemplateProcessor.php';
+require_once __DIR__.'/../src/Processor/UserTemplateProcessor.php';
+require_once __DIR__.'/../src/TemplateManager.php';
 
 class TemplateManagerTest extends TestCase
 {
@@ -38,9 +41,9 @@ class TemplateManagerTest extends TestCase
     {
         $faker = \Faker\Factory::create();
 
-        $destinationId                  = $faker->randomNumber();
+        $destinationId = $faker->randomNumber();
         $expectedDestination = DestinationRepository::getInstance()->getById($destinationId);
-        $expectedUser        = ApplicationContext::getInstance()->getCurrentUser();
+        $expectedUser = ApplicationContext::getInstance()->getCurrentUser();
 
         $quote = new Quote($faker->randomNumber(), $faker->randomNumber(), $destinationId, $faker->date());
 
@@ -55,25 +58,29 @@ Merci de nous avoir contacté pour votre livraison à [quote:destination_name].
 Bien cordialement,
 
 L'équipe Convelio.com
-");
+"
+        );
         $templateManager = new TemplateManager();
 
         $message = $templateManager->getTemplateComputed(
             $template,
             [
-                'quote' => $quote
+                'quote' => $quote,
             ]
         );
 
-        $this->assertEquals('Votre livraison à ' . $expectedDestination->countryName, $message->subject);
-        $this->assertEquals("
-Bonjour " . $expectedUser->firstname . ",
+        $this->assertEquals('Votre livraison à '.$expectedDestination->countryName, $message->subject);
+        $this->assertEquals(
+            "
+Bonjour ".$expectedUser->firstname.",
 
-Merci de nous avoir contacté pour votre livraison à " . $expectedDestination->countryName . ".
+Merci de nous avoir contacté pour votre livraison à ".$expectedDestination->countryName.".
 
 Bien cordialement,
 
 L'équipe Convelio.com
-", $message->content);
+",
+            $message->content
+        );
     }
 }

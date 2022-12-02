@@ -8,6 +8,7 @@ class ApplicationContext
      * @var Site
      */
     private $currentSite;
+
     /**
      * @var User
      */
@@ -15,17 +16,17 @@ class ApplicationContext
 
     protected function __construct()
     {
-        $faker = \Faker\Factory::create();
+        $faker = Faker\Factory::create();
         $this->currentSite = new Site($faker->randomNumber(), $faker->url);
         $this->currentUser = new User($faker->randomNumber(), $faker->firstName, $faker->lastName, $faker->email);
     }
 
-    public function getCurrentSite()
+    public function getCurrentSite(): Site
     {
         return $this->currentSite;
     }
 
-    public function getCurrentUser()
+    public function getCurrentUser(): User
     {
         return $this->currentUser;
     }
