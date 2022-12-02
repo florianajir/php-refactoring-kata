@@ -24,7 +24,7 @@ Expected from me:
 > 3. Init git repository and add files to tracking
 > 4. Run make example in terminal to install dependencies and run the example
 > 5. Add new make test command to run phpunit in php docker container
-> 6. Refactoring `Quote.php` render functions signature (remove static)
+> 6. Refactoring `Quote.php` render functions signature (remove static + hard typing output)
 > 7. Create `TemplateProcessorInterface.php` and implement `TemplateProcessorInterface` in `QuoteTemplateProcessor` and
      `UserTemplateProcessor`. Extract logic code from `TemplateManager` to the process functions and refactor logic
      (remove useless code, switch to `strtr` function for replacement using associative array, implement isProcessable
@@ -42,10 +42,15 @@ Expected from me:
 >   * Open–Closed Principle (no longer have to modify existing code when we create new entity or template)
 >
 > ### Changes
+> * [UPDATE] `.gitignore` (ignore `.phpunit.result.cache` file)
 > * [UPDATE] `Makefile` (missing mbstring extension requirements)
 > * [UPDATE] `composer.json` (missing mbstring extension requirements)
 > * [UPDATE] `src/TemplateManager.php` (refactoring code using template processors)
-> * [UPDATE] `src/Entity/Quote.php` (fetch/associate related objects on instantiation)
+> * [UPDATE] `src/Entity/Quote.php` (refactoring static rendering methods to instance method + hard typing)
+> * [UPDATE] `src/Context/ApplicationContext.php` (refactoring to PSR-12 + hard typing)
+> * [UPDATE] `src/Repository/*.php` (refactoring to PSR-12)
+> * [UPDATE] `example/example.php` (add missing requires for new processors)
+> * [UPDATE] `tests/TemplateManagerTest.php` (add missing requires for new processors)
 > * [ADD] `src/Processor/TemplateProcessorInterface.php` (define processor specs)
 > * [ADD] `src/Processor/QuoteTemplateProcessor.php` (move the logic from manager and refactoring)
 > * [ADD] `src/Processor/UserTemplateProcessor.php` (move the logic from manager and refactoring)
@@ -53,6 +58,7 @@ Expected from me:
 > * [ADD] `tests/QuoteTemplateProcessorTest.php` (test the processor against regressions + placeholder substitutions)
 > * [ADD] `tests/UserTemplateProcessorTest.php` (test the processor against regressions + placeholder substitutions)
 > * [ADD] `tests/SiteTemplateProcessorTest.php` (test the new extensible processor)
+> * [ADD] `UPGRADE.md` (explain development process and principles + link to deliverables)
 >
 > ### Thoughts
 > #### PSR-4 namespace refactoring
