@@ -2,10 +2,6 @@
 
 ## Introduction
 
-**Convelio** is present on a lot of countries and we have some message templates we want to send
-in different languages. To do that, we've developed `TemplateManager` whose job is to replace
-placeholders in texts by travel related information.
-
 `TemplateManager` is a class that's been around for years and nobody really knows who coded
 it or how it really works. Nonetheless, as the business changes frequently, this class has
 already been modified many times, making it harder to understand at each step.
